@@ -1,6 +1,6 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-export type ProductEntityDocument = ProductEntity & Document
+export type ProductEntityDocument = ProductEntity & Document;
 @Schema()
 export class ProductEntity {
   @Prop()
@@ -13,4 +13,4 @@ export class ProductEntity {
   likes: number;
 }
 
-export const ProductEntitySchema = SchemaFactory.createForClass(ProductEntity)
+export const ProductEntitySchema = SchemaFactory.createForClass(ProductEntity);

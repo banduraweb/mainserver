@@ -10,21 +10,21 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { EventPattern } from "@nestjs/microservices";
+import { EventPattern } from '@nestjs/microservices';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @EventPattern('hello')
-  async hello(data){
+  async hello(data) {
     console.log(data);
   }
 
   @EventPattern('product_created')
   async create(data: CreateProductDto) {
-    const {id, title, image, likes} = data;
-    return await this.productsService.create({id, title, image, likes});
+    const { id, title, image, likes } = data;
+    return await this.productsService.create({ id, title, image, likes });
   }
 
   @Get()
@@ -38,8 +38,11 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() {title, image}: UpdateProductDto) {
-    return await this.productsService.update(+id, {title, image});
+  async update(
+    @Param('id') id: string,
+    @Body() { title, image }: UpdateProductDto,
+  ) {
+    return await this.productsService.update(+id, { title, image });
   }
 
   @Delete(':id')

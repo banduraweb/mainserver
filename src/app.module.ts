@@ -6,9 +6,12 @@ import { ProductsModule } from './products/products.module';
 require('dotenv').config();
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.DBURl, {
-    autoCreate: true
-  }), ProductsModule],
+  imports: [
+    MongooseModule.forRoot(process.env.DBURl, {
+      autoCreate: true,
+    }),
+    ProductsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
