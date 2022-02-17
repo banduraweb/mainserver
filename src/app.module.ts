@@ -1,8 +1,10 @@
-import { Module } from '@nestjs/common';
+import {  Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductsModule } from './products/products.module';
+import { HttpModule } from '@nestjs/axios';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 @Module({
@@ -11,6 +13,7 @@ require('dotenv').config();
       autoCreate: true,
     }),
     ProductsModule,
+    HttpModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -24,11 +24,14 @@ export class ProductsService {
   }
 
   async findOne(id: number) {
-    return `This action returns a #${id} product`;
+    return this.productsRepo.findOne({ id: id });
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    return this.productsRepo.findOneAndUpdate(
+      { id: id },
+      { ...updateProductDto },
+    );
   }
 
   async remove(id: number) {

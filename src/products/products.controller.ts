@@ -11,10 +11,14 @@ import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { EventPattern } from '@nestjs/microservices';
+import { HttpService } from '@nestjs/axios';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly httpService: HttpService,
+  ) {}
 
   @EventPattern('hello')
   async hello(data) {
@@ -48,5 +52,15 @@ export class ProductsController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.productsService.remove(+id);
+  }
+  @Post(':id/like')
+  async like(@Param('id') id: string) {
+    const product = await this.productsService.findOne(+id);
+    await this.httpService
+      .post(`http://localhost:3000/api/v1/products/${id}/like`, {})
+      .subscribe((res) => {
+        console.log(res);
+      });
+    return this.productsService.update(+id, { likes: product.likes + 1 });
   }
 }
